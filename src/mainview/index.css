@@ -1,0 +1,15 @@
+@import "tailwindcss";
+@import "@fontsource-variable/instrument-sans";
+
+@layer base {
+    .root {
+        isolation: isolate;
+    }
+    body {
+        font-family: "Instrument Sans Variable", sans-serif;
+    }
+    button,
+    [role="button"] {
+        cursor: pointer;
+    }
+}
