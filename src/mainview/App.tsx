@@ -7,7 +7,6 @@ import {
 import { Electroview } from "electrobun/view";
 import { useCallback, useEffect, useRef, useState } from "react";
 import { toast } from "sonner";
-import HelpPopover from "@/components/question-mark";
 import { cn } from "@/lib/utils";
 import type { GotchuRPC } from "@/shared/rpc-types";
 
