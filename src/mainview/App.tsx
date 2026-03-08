@@ -1,12 +1,22 @@
-import { PlayIcon, StopIcon } from "@phosphor-icons/react";
+import {
+  BellRingingIcon,
+  BellSlashIcon,
+  PlayIcon,
+  StopIcon,
+} from "@phosphor-icons/react";
 import { Electroview } from "electrobun/view";
 import { useCallback, useEffect, useRef, useState } from "react";
+import { toast } from "sonner";
 import HelpPopover from "@/components/question-mark";
 import { cn } from "@/lib/utils";
 import type { GotchuRPC } from "@/shared/rpc-types";
 
 const rpc = Electroview.defineRPC<GotchuRPC>({ handlers: {} });
-// const electroview = new Electroview({ rpc });
+
+// Only connect when running inside Electrobun's native webview
+if (window.__electrobunWebviewId) {
+  new Electroview({ rpc });
+}
 
 function App() {
   const [timerActive, setTimerActive] = useState(false);
@@ -19,7 +29,6 @@ function App() {
   const recursiveTimeout = useCallback(function recursiveTimeout() {
     // Random duration between 5 and 15 minutes
     const duration = (Math.floor(Math.random() * 11) + 5) * 60 * 1000;
-
     timeoutRef.current = window.setTimeout(() => {
       rpc.send.showPostureNotification({});
       recursiveTimeout();
@@ -27,10 +36,21 @@ function App() {
   }, []);
 
   useEffect(() => {
+    const toastId = toast("Sonner");
     if (timerActive) {
+      toast("Timer has been activated!", {
+        description: "You will receive notifications at random duration.",
+        icon: <BellRingingIcon size={20} />,
+        id: toastId,
+      });
       recursiveTimeout();
     } else {
       if (timeoutRef.current) clearTimeout(timeoutRef.current);
+      toast("Timer has been de-activated!", {
+        description: "You will not receive further notifications.",
+        icon: <BellSlashIcon size={20} />,
+        id: toastId,
+      });
     }
 
     return () => {
@@ -41,7 +61,7 @@ function App() {
   return (
     <main className="min-h-svh bg-[#F5F7F2] px-4 py-10 flex items-end">
       <div className="max-w-3xl mx-auto group">
-        <figure className="max-w-170 grid grid-cols-1">
+        <figure className="max-w-lg grid grid-cols-1 mx-auto">
           <img
             src="/slouched.webp"
             alt=""
@@ -55,7 +75,7 @@ function App() {
             src="/unslouched.webp"
             alt=""
             className={cn(
-              "col-span-full row-span-full opacity-0 group-has-[#start-btn:hover]:opacity-100 delay-100 transition-opacity -translate-y-1.25",
+              "col-span-full row-span-full opacity-0 group-has-[#start-btn:hover]:opacity-100 delay-100 transition-opacity -translate-y-1",
               timerActive && "opacity-100",
             )}
             draggable="false"
