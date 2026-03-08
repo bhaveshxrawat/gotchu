@@ -20,6 +20,7 @@ export default {
     },
     win: {
       bundleCEF: false,
+      icon: "icon.iconset/icon_256x256.png",
     },
   },
 } satisfies ElectrobunConfig;
