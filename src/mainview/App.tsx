@@ -63,7 +63,7 @@ function App() {
       <div className="max-w-3xl mx-auto group">
         <figure className="max-w-lg grid grid-cols-1 mx-auto">
           <img
-            src="/slouched.webp"
+            src="views://assets/slouched.webp"
             alt=""
             className={cn(
               "col-span-full row-span-full group-has-[#start-btn:hover]:opacity-0 delay-100 transition-opacity",
@@ -72,7 +72,7 @@ function App() {
             draggable="false"
           />
           <img
-            src="/unslouched.webp"
+            src="views://assets/unslouched.webp"
             alt=""
             className={cn(
               "col-span-full row-span-full opacity-0 group-has-[#start-btn:hover]:opacity-100 delay-100 transition-opacity -translate-y-1",

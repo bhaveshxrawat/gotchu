@@ -20,6 +20,6 @@
       "@/*": ["./src/*"],
     },
   },
-  "include": ["src"],
+  "include": ["src", "assets"],
   "exclude": ["node_modules", "dist", "build", "../../package/dist"],
 }

@@ -11,6 +11,7 @@ export default {
     copy: {
       "dist/index.html": "views/mainview/index.html",
       "dist/assets": "views/mainview/assets",
+      "assets/": "views/assets/",
     },
     mac: {
       bundleCEF: false,
