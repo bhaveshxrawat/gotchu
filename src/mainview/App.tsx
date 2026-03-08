@@ -36,21 +36,20 @@ function App() {
   }, []);
 
   useEffect(() => {
-    const toastId = toast("Sonner");
     if (timerActive) {
       toast("Timer has been activated!", {
         description: "You will receive notifications at random duration.",
         icon: <BellRingingIcon size={20} />,
-        id: toastId,
       });
       recursiveTimeout();
     } else {
-      if (timeoutRef.current) clearTimeout(timeoutRef.current);
-      toast("Timer has been de-activated!", {
-        description: "You will not receive further notifications.",
-        icon: <BellSlashIcon size={20} />,
-        id: toastId,
-      });
+      if (timeoutRef.current) {
+        clearTimeout(timeoutRef.current);
+        toast("Timer has been de-activated!", {
+          description: "You will not receive further notifications.",
+          icon: <BellSlashIcon size={20} />,
+        });
+      }
     }
 
     return () => {
@@ -102,7 +101,6 @@ function App() {
           </button>
         </div>
       </div>
-      <HelpPopover />
     </main>
   );
 }

@@ -5,7 +5,7 @@ export default function HelpPopover() {
   return (
     <Popover.Root>
       <Popover.Trigger className="flex items-center justify-center rounded-md select-none hover:bg-gray-100 focus-visible:outline focus-visible:-outline-offset-1 focus-visible:outline-blue-800 active:bg-gray-100 data-popup-open:bg-gray-100">
-        <QuestionIcon size={28} aria-label="Help" weight="bold" />
+        <QuestionIcon size={28} aria-label="Help" weight="regular" />
       </Popover.Trigger>
       <Popover.Portal>
         <Popover.Positioner sideOffset={8} align="end">
@@ -14,9 +14,8 @@ export default function HelpPopover() {
               How it goes:
             </Popover.Title>
             <Popover.Description className="text-gray-600 text-sm">
-              Clicking on “Unslouch me!” gives you notification as a subtle
-              nudge to fix your posture at random durations because sometimes,
-              that is all one needs ;)
+              Clicking on “Unslouch me!” gives you subtles nudges to fix your
+              posture at random durations using notifications.
             </Popover.Description>
           </Popover.Popup>
         </Popover.Positioner>
