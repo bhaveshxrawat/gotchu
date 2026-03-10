@@ -1,6 +1,13 @@
-# React + Tailwind + Vite Electrobun Template
+# gotchu
 
-A fast Electrobun desktop app template with React, Tailwind CSS, and Vite for hot module replacement (HMR).
+A lightweight macOS desktop app that nudges you to fix your posture at random intervals using system notifications.
+
+## Stack
+
+- **[Electrobun](https://blackboard.sh/electrobun)** — desktop app runtime (not Electron)
+- **React + Vite** — UI with hot module replacement
+- **Tailwind CSS v4** — styling
+- **Bun** — runtime and package manager
 
 ## Getting Started
 
@@ -8,54 +15,40 @@ A fast Electrobun desktop app template with React, Tailwind CSS, and Vite for ho
 # Install dependencies
 bun install
 
-# Development without HMR (uses bundled assets)
-bun run dev
-
 # Development with HMR (recommended)
 bun run dev:hmr
 
-# Build for production
+# Development without HMR
+bun run dev
+
+# Production build
 bun run build
 
-# Build for production release
-bun run build:prod
+# Production release stable build
+bun run build:stable
 ```
 
-## How HMR Works
+## How it works
 
-When you run `bun run dev:hmr`:
-
-1. **Vite dev server** starts on `http://localhost:5173` with HMR enabled
-2. **Electrobun** starts and detects the running Vite server
-3. The app loads from the Vite dev server instead of bundled assets
-4. Changes to React components update instantly without full page reload
-
-When you run `bun run dev` (without HMR):
-
-1. Electrobun starts and loads from `views://mainview/index.html`
-2. You need to rebuild (`bun run build`) to see changes
+Click **Unslouch me** to start the timer. Every 5–15 minutes (random interval), you'll get a system notification reminding you to fix your posture. The messages cycle through a set of 23 different nudges. Click **Working...** to stop.
 
 ## Project Structure
 
 ```
-├── src/
-│   ├── bun/
-│   │   └── index.ts        # Main process (Electrobun/Bun)
-│   └── mainview/
-│       ├── App.tsx         # React app component
-│       ├── main.tsx        # React entry point
-│       ├── index.html      # HTML template
-│       └── index.css       # Tailwind CSS
-├── electrobun.config.ts    # Electrobun configuration
-├── vite.config.ts          # Vite configuration
-├── tailwind.config.js      # Tailwind configuration
-└── package.json
+src/
+├── bun/
+│   └── index.ts          # Main process — window setup, RPC handlers, notifications
+├── shared/
+│   └── rpc-types.ts      # Shared RPC type schema (browser ↔ bun)
+├── mainview/
+│   ├── App.tsx           # Main React component
+│   ├── main.tsx          # React entry point
+│   ├── index.html        # HTML template
+│   └── index.css         # Tailwind CSS
+└── components/
+    └── question-mark.tsx # Help popover
 ```
 
-## Customizing
+## Architecture note
 
-- **React components**: Edit files in `src/mainview/`
-- **Tailwind theme**: Edit `tailwind.config.js`
-- **Vite settings**: Edit `vite.config.ts`
-- **Window settings**: Edit `src/bun/index.ts`
-- **App metadata**: Edit `electrobun.config.ts`
+System notifications (`Utils.showNotification`) can only be called from the Bun process, not the browser context. The UI sends an RPC message (`showPostureNotification`) to the Bun side, which handles the actual notification. See `src/shared/rpc-types.ts` for the schema.
