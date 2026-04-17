@@ -1,3 +1,5 @@
+<img width="2752" height="1536" alt="gotchu app" src="https://github.com/user-attachments/assets/ac7140e9-502b-48e5-b654-889ee6dac2f2" />
+
 # gotchu
 
 A lightweight macOS desktop app that nudges you to fix your posture at random intervals using system notifications.
