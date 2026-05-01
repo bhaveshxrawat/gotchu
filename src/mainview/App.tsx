@@ -19,20 +19,20 @@ if (window.__electrobunWebviewId) {
 
 function App() {
   const [timerActive, setTimerActive] = useState(false);
-  const timeoutRef = useRef<number | null>(null);
-
-  function handleClick() {
-    setTimerActive((s) => !s);
-  }
+  const timeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null);
 
   const recursiveTimeout = useCallback(function recursiveTimeout() {
     // Random duration between 5 and 15 minutes
     const duration = (Math.floor(Math.random() * 11) + 5) * 60 * 1000;
-    timeoutRef.current = window.setTimeout(() => {
+    timeoutRef.current = setTimeout(() => {
       rpc.send.showPostureNotification({});
       recursiveTimeout();
     }, duration);
   }, []);
+
+  function handleClick() {
+    setTimerActive((s) => !s);
+  }
 
   useEffect(() => {
     if (timerActive) {
