@@ -4,7 +4,7 @@ export default {
   app: {
     name: "gotchu",
     identifier: "gotchu.bhavesh.dev",
-    version: "0.0.1",
+    version: "0.0.2",
   },
   build: {
     // Vite builds to dist/, we copy from there
